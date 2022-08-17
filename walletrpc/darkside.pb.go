@@ -136,7 +136,7 @@ func (x *DarksideBlock) GetBlock() string {
 }
 
 // DarksideBlocksURL is typically something like:
-// https://raw.githubusercontent.com/zcash-hackworks/darksidewalletd-test-data/master/basic-reorg/before-reorg.txt
+// https://raw.githubusercontent.com/pirate-hackworks/darksidewalletd-test-data/master/basic-reorg/before-reorg.txt
 type DarksideBlocksURL struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

@@ -22,7 +22,7 @@ spec:
     metadata:
       generateName: lightwalletd-dockerbuild-
     spec:
-      serviceAccountName: zcashsysadmin-service
+      serviceAccountName: piratesysadmin-service
       taskRef:
         name: build-docker-image-from-git-source
       inputs:

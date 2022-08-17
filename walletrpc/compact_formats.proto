@@ -56,7 +56,7 @@ message CompactSaplingOutput {
     bytes ciphertext = 3;   // first 52 bytes of ciphertext
 }
 
-// https://github.com/zcash/zips/blob/main/zip-0225.rst#orchard-action-description-orchardaction
+// https://github.com/pirate/zips/blob/main/zip-0225.rst#orchard-action-description-orchardaction
 // (but not all fields are needed)
 message CompactOrchardAction {
     bytes nullifier = 1;        // [32] The nullifier of the input note

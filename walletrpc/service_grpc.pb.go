@@ -31,7 +31,7 @@ type CompactTxStreamerClient interface {
 	// Get the historical and current prices
 	GetZECPrice(ctx context.Context, in *PriceRequest, opts ...grpc.CallOption) (*PriceResponse, error)
 	GetCurrentZECPrice(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PriceResponse, error)
-	// Return the requested full (not compact) transaction (as from zcashd)
+	// Return the requested full (not compact) transaction (as from pirated)
 	GetTransaction(ctx context.Context, in *TxFilter, opts ...grpc.CallOption) (*RawTransaction, error)
 	// Submit the given transaction to the Pirate network
 	SendTransaction(ctx context.Context, in *RawTransaction, opts ...grpc.CallOption) (*SendResponse, error)
@@ -379,7 +379,7 @@ type CompactTxStreamerServer interface {
 	// Get the historical and current prices
 	GetZECPrice(context.Context, *PriceRequest) (*PriceResponse, error)
 	GetCurrentZECPrice(context.Context, *Empty) (*PriceResponse, error)
-	// Return the requested full (not compact) transaction (as from zcashd)
+	// Return the requested full (not compact) transaction (as from pirated)
 	GetTransaction(context.Context, *TxFilter) (*RawTransaction, error)
 	// Submit the given transaction to the Pirate network
 	SendTransaction(context.Context, *RawTransaction) (*SendResponse, error)

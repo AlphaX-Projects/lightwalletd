@@ -332,7 +332,7 @@ func (x *CompactSaplingOutput) GetCiphertext() []byte {
 	return nil
 }
 
-// https://github.com/zcash/zips/blob/main/zip-0225.rst#orchard-action-description-orchardaction
+// https://github.com/pirate/zips/blob/main/zip-0225.rst#orchard-action-description-orchardaction
 // (but not all fields are needed)
 type CompactOrchardAction struct {
 	state         protoimpl.MessageState

@@ -26,12 +26,12 @@ type darksideState struct {
 	mutex       sync.RWMutex
 
 	// This is the highest (latest) block height currently being presented
-	// by the mock zcashd.
+	// by the mock pirated.
 	latestHeight int
 
-	// These blocks (up to and including tip) are presented by mock zcashd.
+	// These blocks (up to and including tip) are presented by mock pirated.
 	// activeBlocks[0] is the block at height startHeight.
-	activeBlocks [][]byte // full blocks, binary, as from zcashd getblock rpc
+	activeBlocks [][]byte // full blocks, binary, as from pirated getblock rpc
 
 	// Staged blocks are waiting to be applied (by ApplyStaged()) to activeBlocks.
 	// They are in order of arrival (not necessarily sorted by height), and are

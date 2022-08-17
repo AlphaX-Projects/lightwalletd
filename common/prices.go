@@ -81,7 +81,7 @@ func fetchCoinbasePrice() (float64, error) {
 }
 
 func fetchCoinCapPrice() (float64, error) {
-	return fetchAPIPrice("https://api.coincap.io/v2/rates/zcash", []string{"data", "rateUsd"})
+	return fetchAPIPrice("https://api.coincap.io/v2/rates/pirate", []string{"data", "rateUsd"})
 }
 
 func fetchBinancePrice() (float64, error) {

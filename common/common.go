@@ -34,7 +34,7 @@ type Options struct {
 	TLSKeyPath          string `json:"tls_cert_key,omitempty"`
 	LogLevel            uint64 `json:"log_level,omitempty"`
 	LogFile             string `json:"log_file,omitempty"`
-	PirateConfPath       string `json:"zcash_conf,omitempty"`
+	PirateConfPath       string `json:"pirate_conf,omitempty"`
 	RPCUser             string `json:"rpcuser"`
 	RPCPassword         string `json:"rpcpassword"`
 	RPCHost             string `json:"rpchost"`
@@ -49,9 +49,9 @@ type Options struct {
 	DarksideTimeout     uint64 `json:"darkside_timeout"`
 }
 
-// RawRequest points to the function to send a an RPC request to zcashd;
+// RawRequest points to the function to send a an RPC request to pirated;
 // in production, it points to btcsuite/btcd/rpcclient/rawrequest.go:RawRequest();
-// in unit tests it points to a function to mock RPCs to zcashd.
+// in unit tests it points to a function to mock RPCs to pirated.
 var RawRequest func(method string, params []json.RawMessage) (json.RawMessage, error)
 
 // Time allows time-related functions to be mocked for testing,
@@ -71,9 +71,9 @@ var Log *logrus.Entry
 // Metrics as a global object to simplify things
 var Metrics *PrometheusMetrics
 
-// The following are JSON zcashd rpc requests and replies.
+// The following are JSON pirated rpc requests and replies.
 type (
-	// zcashd rpc "getblockchaininfo"
+	// pirated rpc "getblockchaininfo"
 	Upgradeinfo struct {
 		// unneeded fields can be omitted
 		ActivationHeight int
@@ -92,20 +92,20 @@ type (
 		EstimatedHeight int
 	}
 
-	// zcashd rpc "getinfo"
+	// pirated rpc "getinfo"
 	PiratedRpcReplyGetinfo struct {
 		Build      string
 		Subversion string
 	}
 
-	// zcashd rpc "getaddresstxids"
+	// pirated rpc "getaddresstxids"
 	PiratedRpcRequestGetaddresstxids struct {
 		Addresses []string `json:"addresses"`
 		Start     uint64   `json:"start"`
 		End       uint64   `json:"end"`
 	}
 
-	// zcashd rpc "z_gettreestate"
+	// pirated rpc "z_gettreestate"
 	PiratedRpcReplyGettreestate struct {
 		Height  int
 		Hash    string
@@ -124,14 +124,14 @@ type (
 		}
 	}
 
-	// zcashd rpc "getrawtransaction txid 1" (1 means verbose), there are
+	// pirated rpc "getrawtransaction txid 1" (1 means verbose), there are
 	// many more fields but these are the only ones we current need.
 	PiratedRpcReplyGetrawtransaction struct {
 		Hex    string
 		Height int
 	}
 
-	// zcashd rpc "getaddressbalance"
+	// pirated rpc "getaddressbalance"
 	PiratedRpcRequestGetaddressbalance struct {
 		Addresses []string `json:"addresses"`
 	}
@@ -139,7 +139,7 @@ type (
 		Balance int64
 	}
 
-	// zcashd rpc "getaddressutxos"
+	// pirated rpc "getaddressutxos"
 	PiratedRpcRequestGetaddressutxos struct {
 		Addresses []string `json:"addresses"`
 	}
@@ -158,7 +158,7 @@ type (
 	}
 )
 
-// FirstRPC tests that we can successfully reach zcashd through the RPC
+// FirstRPC tests that we can successfully reach pirated through the RPC
 // interface. The specific RPC used here is not important.
 func FirstRPC() {
 	retryCount := 0
@@ -179,7 +179,7 @@ func FirstRPC() {
 		if retryCount > 10 {
 			Log.WithFields(logrus.Fields{
 				"timeouts": retryCount,
-			}).Fatal("unable to issue getblockchaininfo RPC call to zcashd node")
+			}).Fatal("unable to issue getblockchaininfo RPC call to pirated node")
 		}
 		Log.WithFields(logrus.Fields{
 			"error": rpcErr.Error(),
@@ -267,7 +267,7 @@ func getBlockFromRPC(height int) (*walletrpc.CompactBlock, error) {
 
 	// For some reason, the error responses are not JSON
 	if rpcErr != nil {
-		// Check to see if we are requesting a height the zcashd doesn't have yet
+		// Check to see if we are requesting a height the pirated doesn't have yet
 		if (strings.Split(rpcErr.Error(), ":"))[0] == "-8" {
 			return nil, nil
 		}
@@ -301,7 +301,7 @@ func getBlockFromRPC(height int) (*walletrpc.CompactBlock, error) {
 	// `block.ParseFromSlice` correctly parses blocks containing v5 transactions, but
 	// incorrectly computes the IDs of the v5 transactions. We temporarily paper over this
 	// bug by fetching the correct txids via a second getblock RPC call.
-	// https://github.com/zcash/lightwalletd/issues/392
+	// https://github.com/pirate/lightwalletd/issues/392
 	{
 		params[1] = json.RawMessage("1") // JSON with list of txids
 		result, rpcErr := RawRequest("getblock", params)
@@ -344,7 +344,7 @@ func stopIngestor() {
 	}
 }
 
-// BlockIngestor runs as a goroutine and polls zcashd for new blocks, adding them
+// BlockIngestor runs as a goroutine and polls pirated for new blocks, adding them
 // to the cache. The repetition count, rep, is nonzero only for unit-testing.
 func BlockIngestor(c *BlockCache, rep int) {
 	lastLog := Time.Now()
@@ -363,7 +363,7 @@ func BlockIngestor(c *BlockCache, rep int) {
 		if err != nil {
 			Log.WithFields(logrus.Fields{
 				"error": err,
-			}).Fatal("error zcashd getbestblockhash rpc")
+			}).Fatal("error pirated getbestblockhash rpc")
 		}
 		var hashHex string
 		err = json.Unmarshal(result, &hashHex)
@@ -406,7 +406,7 @@ func BlockIngestor(c *BlockCache, rep int) {
 		}
 		if height == c.GetFirstHeight() {
 			c.Sync()
-			Log.Info("Waiting for zcashd height to reach Sapling activation height ",
+			Log.Info("Waiting for pirated height to reach Sapling activation height ",
 				"(", c.GetFirstHeight(), ")...")
 			Time.Sleep(20 * time.Second)
 			return
@@ -417,7 +417,7 @@ func BlockIngestor(c *BlockCache, rep int) {
 }
 
 // GetBlock returns the compact block at the requested height, first by querying
-// the cache, then, if not found, will request the block from zcashd. It returns
+// the cache, then, if not found, will request the block from pirated. It returns
 // nil if no block exists at this height.
 func GetBlock(cache *BlockCache, height int) (*walletrpc.CompactBlock, error) {
 	// First, check the cache to see if we have the block
@@ -426,7 +426,7 @@ func GetBlock(cache *BlockCache, height int) (*walletrpc.CompactBlock, error) {
 		return block, nil
 	}
 
-	// Not in the cache, ask zcashd
+	// Not in the cache, ask pirated
 	block, err := getBlockFromRPC(height)
 	if err != nil {
 		return nil, err

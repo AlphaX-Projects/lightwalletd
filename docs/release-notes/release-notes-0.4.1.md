@@ -3,11 +3,11 @@
 
 Lightwalletd version 0.4.1 is now available from:
 
-  <https://github.com/zcash/lightwalletd/releases/tag/v0.4.1>
+  <https://github.com/pirate/lightwalletd/releases/tag/v0.4.1>
 
 Or cloned from:
 
-  <https://github.com/zcash/lightwalletd/tree/v0.4.1>
+  <https://github.com/pirate/lightwalletd/tree/v0.4.1>
 
 Lightwalletd must be built from source code (there are no binary releases
 at this time).
@@ -17,7 +17,7 @@ improvements, and test code improvements.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/zcash/lightwalletd/issues>
+  <https://github.com/pirate/lightwalletd/issues>
 
 How to Upgrade
 ==============

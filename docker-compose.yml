@@ -10,7 +10,7 @@ services:
     command:
       - --grpc-bind-addr=0.0.0.0:$LWD_GRPC_PORT
       - --http-bind-addr=0.0.0.0:$LWD_HTTP_PORT
-      - --zcash-conf-path=$ZCASHD_CONF_PATH
+      - --pirate-conf-path=$ZCASHD_CONF_PATH
       - --log-file=/dev/stdout
       - --log-level=7
     ports:
@@ -24,11 +24,11 @@ services:
       options:
         loki-url: 'http://localhost:3100/api/prom/push'
 
-  zcashd:
-    image: electriccoinco/zcashd:latest
+  pirated:
+    image: electriccoinco/pirated:latest
     volumes:
-      - $ZCASHD_DATADIR:/srv/zcashd/.zcash
-      - $ZCASHD_PARMDIR:/srv/zcashd/.zcash-params
+      - $ZCASHD_DATADIR:/srv/pirated/.pirate
+      - $ZCASHD_PARMDIR:/srv/pirated/.pirate-params
     env_file:
       - .env
     mem_limit: 4G
@@ -37,13 +37,13 @@ services:
       options:
         loki-url: 'http://localhost:3100/api/prom/push'
 
-  zcashd_exporter:
-    image: electriccoinco/zcashd_exporter:latest
+  pirated_exporter:
+    image: electriccoinco/pirated_exporter:latest
     environment:
       - ZCASHD_RPCUSER=$ZCASHD_RPCUSER
       - ZCASHD_RPCPASSWORD=$ZCASHD_RPCPASSWORD
     command:
-      - --rpc.host=zcashd
+      - --rpc.host=pirated
       - --rpc.port=$ZCASHD_RPCPORT
       - --rpc.user=$ZCASHD_RPCUSER
       - --rpc.password=$ZCASHD_RPCPASSWORD

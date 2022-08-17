@@ -13,7 +13,7 @@ import (
 	ini "gopkg.in/ini.v1"
 )
 
-// NewZRPCFromConf reads the zcashd configuration file.
+// NewZRPCFromConf reads the pirated configuration file.
 func NewZRPCFromConf(confPath interface{}) (*rpcclient.Client, error) {
 	connCfg, err := connFromConf(confPath)
 	if err != nil {
@@ -22,7 +22,7 @@ func NewZRPCFromConf(confPath interface{}) (*rpcclient.Client, error) {
 	return rpcclient.New(connCfg, nil)
 }
 
-// NewZRPCFromFlags gets zcashd rpc connection information from provided flags.
+// NewZRPCFromFlags gets pirated rpc connection information from provided flags.
 func NewZRPCFromFlags(opts *common.Options) (*rpcclient.Client, error) {
 	// Connect to local Pirate RPC server using HTTP POST mode.
 	connCfg := &rpcclient.ConnConfig{

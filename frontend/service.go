@@ -98,7 +98,7 @@ func (s *lwdStreamer) dailyActiveBlock(height uint64, peerip string) {
 }
 
 func (s *lwdStreamer) GetZECPrice(ctx context.Context, in *walletrpc.PriceRequest) (*walletrpc.PriceResponse, error) {
-	// Check for prices before zcash was born
+	// Check for prices before pirate was born
 	if in == nil || in.Timestamp <= 1477551600 /* Pirate birthday: 2016-10-28*/ {
 		common.Metrics.ZecPriceHistoryErrors.Inc()
 		return nil, errors.New("incorrect Timestamp")
@@ -137,7 +137,7 @@ func (s *lwdStreamer) GetCurrentZECPrice(ctx context.Context, in *walletrpc.Empt
 	return resp, nil
 }
 
-// GetLatestBlock returns the height of the best chain, according to zcashd.
+// GetLatestBlock returns the height of the best chain, according to pirated.
 func (s *lwdStreamer) GetLatestBlock(ctx context.Context, placeholder *walletrpc.ChainSpec) (*walletrpc.BlockID, error) {
 	latestBlock := s.cache.GetLatestHeight()
 	latestHash := s.cache.GetLatestHash()
@@ -340,7 +340,7 @@ func (s *lwdStreamer) GetTreeState(ctx context.Context, id *walletrpc.BlockID) (
 		params[0] = hashJSON
 	}
 	if gettreestateReply.Sapling.Commitments.FinalState == "" {
-		return nil, errors.New("zcashd did not return treestate")
+		return nil, errors.New("pirated did not return treestate")
 	}
 	return &walletrpc.TreeState{
 		Network:     s.chainName,
@@ -353,7 +353,7 @@ func (s *lwdStreamer) GetTreeState(ctx context.Context, id *walletrpc.BlockID) (
 }
 
 // GetTransaction returns the raw transaction bytes that are returned
-// by the zcashd 'getrawtransaction' RPC.
+// by the pirated 'getrawtransaction' RPC.
 func (s *lwdStreamer) GetTransaction(ctx context.Context, txf *walletrpc.TxFilter) (*walletrpc.RawTransaction, error) {
 	if txf.Hash != nil {
 		if len(txf.Hash) != 32 {
@@ -396,12 +396,12 @@ func (s *lwdStreamer) GetTransaction(ctx context.Context, txf *walletrpc.TxFilte
 }
 
 // GetLightdInfo gets the LightWalletD (this server) info, and includes information
-// it gets from its backend zcashd.
+// it gets from its backend pirated.
 func (s *lwdStreamer) GetLightdInfo(ctx context.Context, in *walletrpc.Empty) (*walletrpc.LightdInfo, error) {
 	return common.GetLightdInfo()
 }
 
-// SendTransaction forwards raw transaction bytes to a zcashd instance over JSON-RPC
+// SendTransaction forwards raw transaction bytes to a pirated instance over JSON-RPC
 func (s *lwdStreamer) SendTransaction(ctx context.Context, rawtx *walletrpc.RawTransaction) (*walletrpc.SendResponse, error) {
 	// sendrawtransaction "hexstring" ( allowhighfees )
 	//
@@ -523,7 +523,7 @@ func (s *lwdStreamer) GetMempoolStream(_empty *walletrpc.Empty, resp walletrpc.C
 var mempoolMap *map[string]*walletrpc.CompactTx
 var mempoolList []string
 
-// Last time we pulled a copy of the mempool from zcashd.
+// Last time we pulled a copy of the mempool from pirated.
 var lastMempool time.Time
 
 func (s *lwdStreamer) GetMempoolTx(exclude *walletrpc.Exclude, resp walletrpc.CompactTxStreamer_GetMempoolTxServer) error {
@@ -769,7 +769,7 @@ func (s *DarksideStreamer) Reset(ctx context.Context, ms *walletrpc.DarksideMeta
 }
 
 // StageBlocksStream accepts a list of blocks from the wallet test code,
-// and makes them available to present from the mock zcashd's GetBlock rpc.
+// and makes them available to present from the mock pirated's GetBlock rpc.
 func (s *DarksideStreamer) StageBlocksStream(blocks walletrpc.DarksideStreamer_StageBlocksStreamServer) error {
 	for {
 		b, err := blocks.Recv()

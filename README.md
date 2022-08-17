@@ -7,7 +7,7 @@
 
 🔒 Security Warnings
 
-The Lightwalletd Server is experimental and a work in progress. Use it at your own risk. Developers should familiarize themselves with the [wallet app threat model](https://zcash.readthedocs.io/en/latest/rtd_pages/wallet_threat_model.html), since it contains important information about the security and privacy limitations of light wallets that use Lightwalletd.
+The Lightwalletd Server is experimental and a work in progress. Use it at your own risk. Developers should familiarize themselves with the [wallet app threat model](https://pirate.readthedocs.io/en/latest/rtd_pages/wallet_threat_model.html), since it contains important information about the security and privacy limitations of light wallets that use Lightwalletd.
 
 ---
 
@@ -86,7 +86,7 @@ If you have a certificate that you want to use (either self signed, or from a ce
 go run main.go --grpc-bind-addr 127.0.0.1:443 --pirate-conf-path ~/.komodo/PIRATE/PIRATE.conf  --tls-cert cert.pem --tls-key key.pem
 ```
 
-You should start seeing the frontend ingest and cache the zcash blocks after ~15 seconds. 
+You should start seeing the frontend ingest and cache the pirate blocks after ~15 seconds. 
 
 #### 4. Point the `arrrrwallet-cli` to this server
 Connect to your server!

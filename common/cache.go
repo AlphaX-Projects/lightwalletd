@@ -285,7 +285,7 @@ func (c *BlockCache) Add(height int, block *walletrpc.CompactBlock) error {
 	bheight := int(block.Height)
 
 	if bheight != height {
-		// This could only happen if zcashd returned the wrong
+		// This could only happen if pirated returned the wrong
 		// block (not the height we requested).
 		Log.Fatal("cache.Add wrong height: ", bheight, " expecting: ", height)
 		return nil

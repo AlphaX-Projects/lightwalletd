@@ -32,7 +32,7 @@ type DarksideStreamerClient interface {
 	Reset(ctx context.Context, in *DarksideMetaState, opts ...grpc.CallOption) (*Empty, error)
 	// StageBlocksStream accepts a list of blocks and saves them into the blocks
 	// staging area until ApplyStaged() is called; there is no immediate effect on
-	// the mock zcashd. Blocks are hex-encoded. Order is important, see ApplyStaged.
+	// the mock pirated. Blocks are hex-encoded. Order is important, see ApplyStaged.
 	StageBlocksStream(ctx context.Context, opts ...grpc.CallOption) (DarksideStreamer_StageBlocksStreamClient, error)
 	// StageBlocks is the same as StageBlocksStream() except the blocks are fetched
 	// from the given URL. Blocks are one per line, hex-encoded (not JSON).
@@ -47,7 +47,7 @@ type DarksideStreamerClient interface {
 	// staging area until ApplyStaged() is called. Note that these transactions
 	// are not returned by the production GetTransaction() gRPC until they
 	// appear in a "mined" block (contained in the active blockchain presented
-	// by the mock zcashd).
+	// by the mock pirated).
 	StageTransactionsStream(ctx context.Context, opts ...grpc.CallOption) (DarksideStreamer_StageTransactionsStreamClient, error)
 	// StageTransactions is the same except the transactions are fetched from
 	// the given url. They are all staged into the block at the given height.
@@ -55,7 +55,7 @@ type DarksideStreamerClient interface {
 	StageTransactions(ctx context.Context, in *DarksideTransactionsURL, opts ...grpc.CallOption) (*Empty, error)
 	// ApplyStaged iterates the list of blocks that were staged by the
 	// StageBlocks*() gRPCs, in the order they were staged, and "merges" each
-	// into the active, working blocks list that the mock zcashd is presenting
+	// into the active, working blocks list that the mock pirated is presenting
 	// to lightwalletd. Even as each block is applied, the active list can't
 	// have gaps; if the active block range is 1000-1006, and the staged block
 	// range is 1003-1004, the resulting range is 1000-1004, with 1000-1002
@@ -65,10 +65,10 @@ type DarksideStreamerClient interface {
 	// the order received) into each one's corresponding (by height) block
 	// The staging area is then cleared.
 	//
-	// The argument specifies the latest block height that mock zcashd reports
+	// The argument specifies the latest block height that mock pirated reports
 	// (i.e. what's returned by GetLatestBlock). Note that ApplyStaged() can
 	// also be used to simply advance the latest block height presented by mock
-	// zcashd. That is, there doesn't need to be anything in the staging area.
+	// pirated. That is, there doesn't need to be anything in the staging area.
 	ApplyStaged(ctx context.Context, in *DarksideHeight, opts ...grpc.CallOption) (*Empty, error)
 	// Calls to the production gRPC SendTransaction() store the transaction in
 	// a separate area (not the staging area); this method returns all transactions
@@ -281,7 +281,7 @@ type DarksideStreamerServer interface {
 	Reset(context.Context, *DarksideMetaState) (*Empty, error)
 	// StageBlocksStream accepts a list of blocks and saves them into the blocks
 	// staging area until ApplyStaged() is called; there is no immediate effect on
-	// the mock zcashd. Blocks are hex-encoded. Order is important, see ApplyStaged.
+	// the mock pirated. Blocks are hex-encoded. Order is important, see ApplyStaged.
 	StageBlocksStream(DarksideStreamer_StageBlocksStreamServer) error
 	// StageBlocks is the same as StageBlocksStream() except the blocks are fetched
 	// from the given URL. Blocks are one per line, hex-encoded (not JSON).
@@ -296,7 +296,7 @@ type DarksideStreamerServer interface {
 	// staging area until ApplyStaged() is called. Note that these transactions
 	// are not returned by the production GetTransaction() gRPC until they
 	// appear in a "mined" block (contained in the active blockchain presented
-	// by the mock zcashd).
+	// by the mock pirated).
 	StageTransactionsStream(DarksideStreamer_StageTransactionsStreamServer) error
 	// StageTransactions is the same except the transactions are fetched from
 	// the given url. They are all staged into the block at the given height.
@@ -304,7 +304,7 @@ type DarksideStreamerServer interface {
 	StageTransactions(context.Context, *DarksideTransactionsURL) (*Empty, error)
 	// ApplyStaged iterates the list of blocks that were staged by the
 	// StageBlocks*() gRPCs, in the order they were staged, and "merges" each
-	// into the active, working blocks list that the mock zcashd is presenting
+	// into the active, working blocks list that the mock pirated is presenting
 	// to lightwalletd. Even as each block is applied, the active list can't
 	// have gaps; if the active block range is 1000-1006, and the staged block
 	// range is 1003-1004, the resulting range is 1000-1004, with 1000-1002
@@ -314,10 +314,10 @@ type DarksideStreamerServer interface {
 	// the order received) into each one's corresponding (by height) block
 	// The staging area is then cleared.
 	//
-	// The argument specifies the latest block height that mock zcashd reports
+	// The argument specifies the latest block height that mock pirated reports
 	// (i.e. what's returned by GetLatestBlock). Note that ApplyStaged() can
 	// also be used to simply advance the latest block height presented by mock
-	// zcashd. That is, there doesn't need to be anything in the staging area.
+	// pirated. That is, there doesn't need to be anything in the staging area.
 	ApplyStaged(context.Context, *DarksideHeight) (*Empty, error)
 	// Calls to the production gRPC SendTransaction() store the transaction in
 	// a separate area (not the staging area); this method returns all transactions

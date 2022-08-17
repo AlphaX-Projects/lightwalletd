@@ -3,7 +3,7 @@
 Darksidewalletd is a feature included in lightwalletd, enabled by the
 `--darkside-very-insecure` flag, which can serve arbitrary blocks to a Pirate
 light client wallet. This is useful for security and reorg testing. It includes
-a minimally-functional mock zcashd which comes with a gRPC API for controlling
+a minimally-functional mock pirated which comes with a gRPC API for controlling
 which blocks it will serve.
 
 This means that you can use darksidewalletd to control the blocks and
@@ -26,8 +26,8 @@ mitigates these risks, but users should still be cautious.
 ## Dependencies 
 
 Lightwalletd and most dependencies of lightwalletd, including Go version 1.11 or
-later, but not zcashd. Since Darksidewalletd mocks zcashd, it can run standalone
-and does use zcashd to get blocks or send and receive transactions.
+later, but not pirated. Since Darksidewalletd mocks pirated, it can run standalone
+and does use pirated to get blocks or send and receive transactions.
 
 For the tutorial the `grpcurl` tool is needed to call the `darksidewalletd`
 gRPC API.
@@ -97,7 +97,7 @@ it, which makes the reorg happen.
 Here's a quick-start guide to simulating a reorg:
 ```
 grpcurl -plaintext -d '{"saplingActivation": 663150,"branchID": "bad", "chainName":"x"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/Reset
-grpcurl -plaintext -d '{"url": "https://raw.githubusercontent.com/zcash-hackworks/darksidewalletd-test-data/master/basic-reorg/663150.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocks
+grpcurl -plaintext -d '{"url": "https://raw.githubusercontent.com/pirate-hackworks/darksidewalletd-test-data/master/basic-reorg/663150.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocks
 grpcurl -plaintext -d '{"height":663151,"count":10}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocksCreate
 grpcurl -plaintext -d '{"height":663160}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/ApplyStaged
 grpcurl -plaintext -d '{"height":663155,"count":10,"nonce":44}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocksCreate
@@ -122,7 +122,7 @@ grpcurl -plaintext -d '{"saplingActivation": 663150,"branchID": "bad", "chainNam
 Next, we will stage the real mainnet block 663150. In ECC's example wallets, this block is used as a checkpoint so we need to use the real block to pass that check.
 
 ```
-grpcurl -plaintext -d '{"url": "https://raw.githubusercontent.com/zcash-hackworks/darksidewalletd-test-data/master/basic-reorg/663150.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocks
+grpcurl -plaintext -d '{"url": "https://raw.githubusercontent.com/pirate-hackworks/darksidewalletd-test-data/master/basic-reorg/663150.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocks
 ```
 
 This has put block 663150 into darksidewalletd's staging area. The block has
@@ -144,7 +144,7 @@ range of blocks we've staged; when we "apply" the staging area later on
 darksidewalletd will merge this transaction into the fake 663190 block.
 
 ```
-grpcurl -plaintext -d '{"height":663190,"url":"https://raw.githubusercontent.com/zcash-hackworks/darksidewalletd-test-data/master/transactions/recv/0821a89be7f2fc1311792c3fa1dd2171a8cdfb2effd98590cbd5ebcdcfcf491f.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageTransactions
+grpcurl -plaintext -d '{"height":663190,"url":"https://raw.githubusercontent.com/pirate-hackworks/darksidewalletd-test-data/master/transactions/recv/0821a89be7f2fc1311792c3fa1dd2171a8cdfb2effd98590cbd5ebcdcfcf491f.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageTransactions
 ```
 
 We have now finished filling darksidewalletd's staging area with the "before
@@ -217,7 +217,7 @@ Now, stage that same transaction as before, but this time to height 663195
 (previously we had put it in 663190):
 
 ```
-grpcurl -plaintext -d '{"height":663195,"url":"https://raw.githubusercontent.com/zcash-hackworks/darksidewalletd-test-data/master/transactions/recv/0821a89be7f2fc1311792c3fa1dd2171a8cdfb2effd98590cbd5ebcdcfcf491f.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageTransactions
+grpcurl -plaintext -d '{"height":663195,"url":"https://raw.githubusercontent.com/pirate-hackworks/darksidewalletd-test-data/master/transactions/recv/0821a89be7f2fc1311792c3fa1dd2171a8cdfb2effd98590cbd5ebcdcfcf491f.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageTransactions
 ```
 
 Finally, we can apply the staged blocks and transactions to trigger a reorg:
@@ -355,7 +355,7 @@ The `GetMempoolTx` gRPC will return staged transactions that are either within
 staged blocks or that have been staged separately. Here is an example:
 ```
 grpcurl -plaintext -d '{"saplingActivation": 663150,"branchID": "bad", "chainName":"x"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/Reset
-grpcurl -plaintext -d '{"url": "https://raw.githubusercontent.com/zcash-hackworks/darksidewalletd-test-data/master/tx-incoming/blocks.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocks
+grpcurl -plaintext -d '{"url": "https://raw.githubusercontent.com/pirate-hackworks/darksidewalletd-test-data/master/tx-incoming/blocks.txt"}' localhost:9067 cash.z.wallet.sdk.rpc.DarksideStreamer/StageBlocks
 grpcurl -plaintext -d '{"txid":["qg=="]}' localhost:9067 cash.z.wallet.sdk.rpc.CompactTxStreamer/GetMempoolTx
 ```
 

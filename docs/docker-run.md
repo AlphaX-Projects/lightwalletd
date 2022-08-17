@@ -13,7 +13,7 @@ docker run --rm -p 9067:9067 \
   --no-tls-very-insecure \
   --rpchost 192.168.86.46 \
   --rpcport 38237 \
-  --rpcuser zcashrpc \
+  --rpcuser piraterpc \
   --rpcpassword notsecure \
   --log-file /dev/stdout
 ```
@@ -43,7 +43,7 @@ docker run --rm -p 9067:9067 \
   --no-tls-very-insecure \
   --rpchost 192.168.86.46 \
   --rpcport 38237 \
-  --rpcuser zcashrpc \
+  --rpcuser piraterpc \
   --rpcpassword notsecure \
   --data-dir /srv/lightwalletd/db_volume \
   --log-file /dev/stdout
@@ -59,7 +59,7 @@ Create a configuration file:
 cat <<EOF >lightwalletd.yml
 no-tls-very-insecure: true
 log-file: /dev/stdout
-rpcuser: zcashrpc
+rpcuser: piraterpc
 rpcpassword: notsecure
 rpchost: 192.168.86.46
 rpcport: 38237

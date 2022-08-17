@@ -85,8 +85,8 @@ func TestV5TransactionParser(t *testing.T) {
 			t.Fatalf("Test did not consume entire buffer, %d remaining", len(rest))
 		}
 		// Currently, we can't check the txid because we get that from
-		// zcashd (getblock rpc) rather than computing it ourselves.
-		// https://github.com/zcash/lightwalletd/issues/392
+		// pirated (getblock rpc) rather than computing it ourselves.
+		// https://github.com/pirate/lightwalletd/issues/392
 		if tx.version != uint32(txtestdata.Version) {
 			t.Fatal("version miscompare")
 		}

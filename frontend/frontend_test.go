@@ -176,7 +176,7 @@ func TestGetLatestBlock(t *testing.T) {
 		t.Fatal("unexpected blockID", blockID)
 	}
 
-	// This does zcashd rpc "getblock", calls getblockStub() above
+	// This does pirated rpc "getblock", calls getblockStub() above
 	block, err := common.GetBlock(cache, 380640)
 	if err != nil {
 		t.Fatal("getBlockFromRPC failed", err)
@@ -212,7 +212,7 @@ var addressTests = []string{
 	"t1234567890123456789012345678901234\n", // newline after
 }
 
-func zcashdrpcStub(method string, params []json.RawMessage) (json.RawMessage, error) {
+func piratedrpcStub(method string, params []json.RawMessage) (json.RawMessage, error) {
 	step++
 	switch method {
 	case "getaddresstxids":
@@ -247,7 +247,7 @@ func zcashdrpcStub(method string, params []json.RawMessage) (json.RawMessage, er
 			return []byte(""), errors.New("-5: test getrawtransaction error")
 		}
 	}
-	testT.Fatal("unexpected call to zcashdrpcStub")
+	testT.Fatal("unexpected call to piratedrpcStub")
 	return nil, nil
 }
 
@@ -271,7 +271,7 @@ func (tg *testgettx) Send(tx *walletrpc.RawTransaction) error {
 
 func TestGetTaddressTxids(t *testing.T) {
 	testT = t
-	common.RawRequest = zcashdrpcStub
+	common.RawRequest = piratedrpcStub
 	lwd, _ := testsetup()
 
 	addressBlockFilter := &walletrpc.TransparentAddressBlockFilter{

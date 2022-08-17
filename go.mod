@@ -12,7 +12,7 @@ require (
 	github.com/sirupsen/logrus v1.4.2
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.2
-	github.com/zcash/lightwalletd v0.4.12
+	github.com/pirate/lightwalletd v0.4.12
 	google.golang.org/grpc v1.44.0
 	google.golang.org/protobuf v1.27.1
 	gopkg.in/ini.v1 v1.51.0

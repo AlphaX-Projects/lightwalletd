@@ -15,14 +15,14 @@ Copy `.env.example` to `.env` and change any required parameters.
 | Variable        | Usage           | 
 | ------------- |:-------------:|
 |   `GF_SECURITY_ADMIN_USER`   |    Grafana admin user name   |
-|   `ZCASHD_RPCUSER`   |    zcashd rpc user   |
-|   `ZCASHD_RPCPASSWORD` | zcashd rpc password |
-|   `ZCASHD_RPCPORT`   |    zcashd rpc port   |
-|`ZCASHD_ALLOWIP`| zcashd rpc allowed IPs (don't change unless you know what you're doing)|
-|`ZCASHD_DATADIR`| local location of zcashd data directory. `uid` 2001 needs write access|
-|`ZCASHD_PARMDIR`| local location of zcashd data directory. `uid` 2001 needs read access|
-|`ZCASHD_NETWORK`| zcashd network to use, `testnet` or `mainnet`|
-|`ZCASHD_GEN`| should zcashd mine? `0` or `1`
+|   `ZCASHD_RPCUSER`   |    pirated rpc user   |
+|   `ZCASHD_RPCPASSWORD` | pirated rpc password |
+|   `ZCASHD_RPCPORT`   |    pirated rpc port   |
+|`ZCASHD_ALLOWIP`| pirated rpc allowed IPs (don't change unless you know what you're doing)|
+|`ZCASHD_DATADIR`| local location of pirated data directory. `uid` 2001 needs write access|
+|`ZCASHD_PARMDIR`| local location of pirated data directory. `uid` 2001 needs read access|
+|`ZCASHD_NETWORK`| pirated network to use, `testnet` or `mainnet`|
+|`ZCASHD_GEN`| should pirated mine? `0` or `1`
 |`LWD_PORT`| port for lightwalletd to bind to|
 |`ZCASHD_CONF_PATH`| path for lightwalletd to pick up configuration|
 
@@ -33,13 +33,13 @@ Copy `.env.example` to `.env` and change any required parameters.
 ./buildenv.sh | tee .env
 ```
 
-## Edit the two zcash.conf files
-There are two zcash.conf files; one read by zcashd, one read by lightwalletd.
+## Edit the two pirate.conf files
+There are two pirate.conf files; one read by pirated, one read by lightwalletd.
 
-### `$ZCASHD_DATADIR/zcash.conf`—read by zcashd
-The zcashd's `zcash.conf` needs to look like: 
+### `$ZCASHD_DATADIR/pirate.conf`—read by pirated
+The pirated's `pirate.conf` needs to look like: 
 ```
-rpcuser=zcashrpc
+rpcuser=piraterpc
 rpcpassword=TODO INSERT A RANDOM PASSWORD HERE
 experimentalfeatures=1
 lightwalletd=1
@@ -47,12 +47,12 @@ lightwalletd=1
 
 Replace `TODO INSERT A RANDOM PASSWORD HERE` with a random password, e.g. the output of `head -c 16 /dev/urandom | base64`.
 
-`rpcuser` and `rpcpassword` must be set, as lightwalletd doesn't work with RPC cookies (see the [rpcpassword](https://zcash.readthedocs.io/en/latest/rtd_pages/zcash_conf_guide.html) documentation) for authentication.
+`rpcuser` and `rpcpassword` must be set, as lightwalletd doesn't work with RPC cookies (see the [rpcpassword](https://pirate.readthedocs.io/en/latest/rtd_pages/pirate_conf_guide.html) documentation) for authentication.
 
-`rpcuser` and `rpcpassword` in `.env` are only used by zcashd_exporter, but they also must be the same values as in `$ZCASHD_DATADIR/zcash.conf`
+`rpcuser` and `rpcpassword` in `.env` are only used by pirated_exporter, but they also must be the same values as in `$ZCASHD_DATADIR/pirate.conf`
 
-### `lightwalletd/docker/zcash.conf`—read by lightwalletd
-The other `zcashd.conf`—the one read by lightwalletd—needs to have `rpcbind` (the address of the zcashd it will connect to) set to `zcashd`, and then docker-compose networking will make it resolve to the right IP address. Also, it needs to have the same `rpcuser` and `rpcpassword` values that are listed in `$ZCASHD_DATADIR/zcash.conf` to be able to authenticate.
+### `lightwalletd/docker/pirate.conf`—read by lightwalletd
+The other `pirated.conf`—the one read by lightwalletd—needs to have `rpcbind` (the address of the pirated it will connect to) set to `pirated`, and then docker-compose networking will make it resolve to the right IP address. Also, it needs to have the same `rpcuser` and `rpcpassword` values that are listed in `$ZCASHD_DATADIR/pirate.conf` to be able to authenticate.
 
 
 ## Build initial local docker image
@@ -96,7 +96,7 @@ Click `Import`
 
 This should then be taken to the `Pirated node exporter` dashboard.
 
-![grafana-zcashd-dashboard](./images/grafana-zcashd-dashboard.png)
+![grafana-pirated-dashboard](./images/grafana-pirated-dashboard.png)
 
 If all goes as planned, the dashboard should start populating data from the container services.
 

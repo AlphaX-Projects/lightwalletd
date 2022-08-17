@@ -119,7 +119,7 @@ func TestGetLightdInfo(t *testing.T) {
 	testT = t
 	RawRequest = getLightdInfoStub
 	Time.Sleep = sleepStub
-	// This calls the getblockchaininfo rpc just to establish connectivity with zcashd
+	// This calls the getblockchaininfo rpc just to establish connectivity with pirated
 	FirstRPC()
 
 	// Ensure the retry happened as expected
@@ -618,7 +618,7 @@ func TestGenerateCerts(t *testing.T) {
 
 // ------------------------------------------ GetMempoolStream
 
-// Note that in mocking zcashd's RPC replies here, we don't really need
+// Note that in mocking pirated's RPC replies here, we don't really need
 // actual txids or transactions, or even strings with the correct format
 // for those, except that a transaction must be a hex string.
 func mempoolStub(method string, params []json.RawMessage) (json.RawMessage, error) {
@@ -763,7 +763,7 @@ func TestMempoolStream(t *testing.T) {
 		t.Fatal("unexpected end time")
 	}
 	if step != 8 {
-		t.Fatal("unexpected number of zcashd RPCs")
+		t.Fatal("unexpected number of pirated RPCs")
 	}
 
 	step = 0

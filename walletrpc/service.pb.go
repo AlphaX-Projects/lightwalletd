@@ -416,9 +416,9 @@ type LightdInfo struct {
 	Branch                  string `protobuf:"bytes,9,opt,name=branch,proto3" json:"branch,omitempty"`
 	BuildDate               string `protobuf:"bytes,10,opt,name=buildDate,proto3" json:"buildDate,omitempty"`
 	BuildUser               string `protobuf:"bytes,11,opt,name=buildUser,proto3" json:"buildUser,omitempty"`
-	EstimatedHeight         uint64 `protobuf:"varint,12,opt,name=estimatedHeight,proto3" json:"estimatedHeight,omitempty"`  // less than tip height if zcashd is syncing
-	PiratedBuild             string `protobuf:"bytes,13,opt,name=zcashdBuild,proto3" json:"zcashdBuild,omitempty"`           // example: "v4.1.1-877212414"
-	PiratedSubversion        string `protobuf:"bytes,14,opt,name=zcashdSubversion,proto3" json:"zcashdSubversion,omitempty"` // example: "/MagicBean:4.1.1/"
+	EstimatedHeight         uint64 `protobuf:"varint,12,opt,name=estimatedHeight,proto3" json:"estimatedHeight,omitempty"`  // less than tip height if pirated is syncing
+	PiratedBuild             string `protobuf:"bytes,13,opt,name=piratedBuild,proto3" json:"piratedBuild,omitempty"`           // example: "v4.1.1-877212414"
+	PiratedSubversion        string `protobuf:"bytes,14,opt,name=piratedSubversion,proto3" json:"piratedSubversion,omitempty"` // example: "/MagicBean:4.1.1/"
 }
 
 func (x *LightdInfo) Reset() {

@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
-// Package parser deserializes (full) transactions (zcashd).
+// Package parser deserializes (full) transactions (pirated).
 package parser
 
 import (
@@ -71,7 +71,7 @@ func (tx *txIn) ParseFromSlice(data []byte) ([]byte, error) {
 
 // Txout format as described in https://en.bitcoin.it/wiki/Transaction
 type txOut struct {
-	// Non-negative int giving the number of zatoshis to be transferred
+	// Non-negative int giving the number of arrrtoshis to be transferred
 	Value uint64
 
 	// Script. CompactSize-prefixed.
@@ -335,7 +335,7 @@ func (p *action) ToCompact() *walletrpc.CompactOrchardAction {
 	}
 }
 
-// Transaction encodes a full (zcashd) transaction.
+// Transaction encodes a full (pirated) transaction.
 type Transaction struct {
 	*rawTransaction
 	rawBytes []byte

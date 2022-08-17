@@ -2,21 +2,21 @@
  #  File: Dockerfile
  #  Author: mdr0id
  #  Date: 9/3/2019
- #  Description:  Used for devs that have not built zcashd or lightwalletd on
+ #  Description:  Used for devs that have not built pirated or lightwalletd on
  #                on existing system
  #  USAGE:
  #
  #  To build image: make docker_img
  #  To run container: make docker_image_run
  #  
- #  This will place you into the container where you can run zcashd, zcash-cli, 
+ #  This will place you into the container where you can run pirated, pirate-cli, 
  #  lightwalletd server etc..
  #
- #  First you need to get zcashd sync to current height on testnet, from outside container:
- #  make docker_img_run_zcashd
+ #  First you need to get pirated sync to current height on testnet, from outside container:
+ #  make docker_img_run_pirated
  #
- #  Sometimes you need to manually start zcashd for the first time, from inside the container:
- #  zcashd -printtoconsole   
+ #  Sometimes you need to manually start pirated for the first time, from inside the container:
+ #  pirated -printtoconsole   
  #
  #  Once the block height is at least 280,000 you can go ahead and start lightwalletd
  #  make docker_img_run_lightwalletd_insecure_server
@@ -34,7 +34,7 @@
  #  *** DO NOT USE IN PRODUCTION ***
  #  
  #  - Create docker-compose with according .env scaffolding 
- #  - Determine librustzcash bug that breaks zcashd alpine builds at runtime
+ #  - Determine librustpirate bug that breaks pirated alpine builds at runtime
  #  - Once versioning is stable add config flags for images
  #  - Add mainnet config once lightwalletd stack supports it 
  #
@@ -43,8 +43,8 @@
 # Create layer in case you want to modify local lightwalletd code
 FROM golang:1.13 AS lightwalletd_base
 
-ADD . /go/src/github.com/zcash/lightwalletd
-WORKDIR /go/src/github.com/zcash/lightwalletd
+ADD . /go/src/github.com/pirate/lightwalletd
+WORKDIR /go/src/github.com/pirate/lightwalletd
 RUN make \
   && /usr/bin/install -c ./lightwalletd /usr/local/bin/ \
   && mkdir -p /var/lib/lightwalletd/db \

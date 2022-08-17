@@ -7,7 +7,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// Handle http(s) downloads for zcash params
+// Handle http(s) downloads for pirate params
 func ParamsHandler(w http.ResponseWriter, req *http.Request) {
 	if strings.HasSuffix(req.URL.Path, "sapling-output.params") {
 		Metrics.TotalSaplingParamsCounter.Inc()
