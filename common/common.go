@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -34,7 +34,7 @@ type Options struct {
 	TLSKeyPath          string `json:"tls_cert_key,omitempty"`
 	LogLevel            uint64 `json:"log_level,omitempty"`
 	LogFile             string `json:"log_file,omitempty"`
-	ZcashConfPath       string `json:"zcash_conf,omitempty"`
+	PirateConfPath       string `json:"zcash_conf,omitempty"`
 	RPCUser             string `json:"rpcuser"`
 	RPCPassword         string `json:"rpcpassword"`
 	RPCHost             string `json:"rpchost"`
@@ -83,7 +83,7 @@ type (
 		Nextblock string // example: "e9ff75a6" (canopy)
 		Chaintip  string // example: "e9ff75a6" (canopy)
 	}
-	ZcashdRpcReplyGetblockchaininfo struct {
+	PiratedRpcReplyGetblockchaininfo struct {
 		Chain           string
 		Upgrades        map[string]Upgradeinfo
 		Blocks          int
@@ -93,20 +93,20 @@ type (
 	}
 
 	// zcashd rpc "getinfo"
-	ZcashdRpcReplyGetinfo struct {
+	PiratedRpcReplyGetinfo struct {
 		Build      string
 		Subversion string
 	}
 
 	// zcashd rpc "getaddresstxids"
-	ZcashdRpcRequestGetaddresstxids struct {
+	PiratedRpcRequestGetaddresstxids struct {
 		Addresses []string `json:"addresses"`
 		Start     uint64   `json:"start"`
 		End       uint64   `json:"end"`
 	}
 
 	// zcashd rpc "z_gettreestate"
-	ZcashdRpcReplyGettreestate struct {
+	PiratedRpcReplyGettreestate struct {
 		Height  int
 		Hash    string
 		Time    uint32
@@ -126,24 +126,24 @@ type (
 
 	// zcashd rpc "getrawtransaction txid 1" (1 means verbose), there are
 	// many more fields but these are the only ones we current need.
-	ZcashdRpcReplyGetrawtransaction struct {
+	PiratedRpcReplyGetrawtransaction struct {
 		Hex    string
 		Height int
 	}
 
 	// zcashd rpc "getaddressbalance"
-	ZcashdRpcRequestGetaddressbalance struct {
+	PiratedRpcRequestGetaddressbalance struct {
 		Addresses []string `json:"addresses"`
 	}
-	ZcashdRpcReplyGetaddressbalance struct {
+	PiratedRpcReplyGetaddressbalance struct {
 		Balance int64
 	}
 
 	// zcashd rpc "getaddressutxos"
-	ZcashdRpcRequestGetaddressutxos struct {
+	PiratedRpcRequestGetaddressutxos struct {
 		Addresses []string `json:"addresses"`
 	}
-	ZcashdRpcReplyGetaddressutxos struct {
+	PiratedRpcReplyGetaddressutxos struct {
 		Address     string
 		Txid        string
 		OutputIndex int64
@@ -153,7 +153,7 @@ type (
 	}
 
 	// reply to getblock verbose=1 (json includes txid list)
-	ZcashRpcReplyGetblock1 struct {
+	PirateRpcReplyGetblock1 struct {
 		Tx []string
 	}
 )
@@ -168,7 +168,7 @@ func FirstRPC() {
 			if retryCount > 0 {
 				Log.Warn("getblockchaininfo RPC successful")
 			}
-			var getblockchaininfo ZcashdRpcReplyGetblockchaininfo
+			var getblockchaininfo PiratedRpcReplyGetblockchaininfo
 			err := json.Unmarshal(result, &getblockchaininfo)
 			if err != nil {
 				Log.Fatalf("error parsing JSON getblockchaininfo response: %v", err)
@@ -194,7 +194,7 @@ func GetLightdInfo() (*walletrpc.LightdInfo, error) {
 	if rpcErr != nil {
 		return nil, rpcErr
 	}
-	var getinfoReply ZcashdRpcReplyGetinfo
+	var getinfoReply PiratedRpcReplyGetinfo
 	err := json.Unmarshal(result, &getinfoReply)
 	if err != nil {
 		return nil, rpcErr
@@ -204,7 +204,7 @@ func GetLightdInfo() (*walletrpc.LightdInfo, error) {
 	if rpcErr != nil {
 		return nil, rpcErr
 	}
-	var getblockchaininfoReply ZcashdRpcReplyGetblockchaininfo
+	var getblockchaininfoReply PiratedRpcReplyGetblockchaininfo
 	err = json.Unmarshal(result, &getblockchaininfoReply)
 	if err != nil {
 		return nil, rpcErr
@@ -232,8 +232,8 @@ func GetLightdInfo() (*walletrpc.LightdInfo, error) {
 		BuildDate:               BuildDate,
 		BuildUser:               BuildUser,
 		EstimatedHeight:         uint64(getblockchaininfoReply.EstimatedHeight),
-		ZcashdBuild:             getinfoReply.Build,
-		ZcashdSubversion:        getinfoReply.Subversion,
+		PiratedBuild:             getinfoReply.Build,
+		PiratedSubversion:        getinfoReply.Subversion,
 	}, nil
 }
 
@@ -308,7 +308,7 @@ func getBlockFromRPC(height int) (*walletrpc.CompactBlock, error) {
 		if rpcErr != nil {
 			return nil, errors.Wrap(rpcErr, "error requesting verbose block")
 		}
-		var block1 ZcashRpcReplyGetblock1
+		var block1 PirateRpcReplyGetblock1
 		err = json.Unmarshal(result, &block1)
 		if err != nil {
 			return nil, err

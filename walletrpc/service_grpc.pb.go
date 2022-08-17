@@ -33,7 +33,7 @@ type CompactTxStreamerClient interface {
 	GetCurrentZECPrice(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*PriceResponse, error)
 	// Return the requested full (not compact) transaction (as from zcashd)
 	GetTransaction(ctx context.Context, in *TxFilter, opts ...grpc.CallOption) (*RawTransaction, error)
-	// Submit the given transaction to the Zcash network
+	// Submit the given transaction to the Pirate network
 	SendTransaction(ctx context.Context, in *RawTransaction, opts ...grpc.CallOption) (*SendResponse, error)
 	// Return the txids corresponding to the given t-address within the given block range
 	GetTaddressTxids(ctx context.Context, in *TransparentAddressBlockFilter, opts ...grpc.CallOption) (CompactTxStreamer_GetTaddressTxidsClient, error)
@@ -53,7 +53,7 @@ type CompactTxStreamerClient interface {
 	// there are mempool transactions. It will close the returned stream when a new block is mined.
 	GetMempoolStream(ctx context.Context, in *Empty, opts ...grpc.CallOption) (CompactTxStreamer_GetMempoolStreamClient, error)
 	// GetTreeState returns the note commitment tree state corresponding to the given block.
-	// See section 3.7 of the Zcash protocol specification. It returns several other useful
+	// See section 3.7 of the Pirate protocol specification. It returns several other useful
 	// values also (even though they can be obtained using GetBlock).
 	// The block can be specified by either height or hash.
 	GetTreeState(ctx context.Context, in *BlockID, opts ...grpc.CallOption) (*TreeState, error)
@@ -381,7 +381,7 @@ type CompactTxStreamerServer interface {
 	GetCurrentZECPrice(context.Context, *Empty) (*PriceResponse, error)
 	// Return the requested full (not compact) transaction (as from zcashd)
 	GetTransaction(context.Context, *TxFilter) (*RawTransaction, error)
-	// Submit the given transaction to the Zcash network
+	// Submit the given transaction to the Pirate network
 	SendTransaction(context.Context, *RawTransaction) (*SendResponse, error)
 	// Return the txids corresponding to the given t-address within the given block range
 	GetTaddressTxids(*TransparentAddressBlockFilter, CompactTxStreamer_GetTaddressTxidsServer) error
@@ -401,7 +401,7 @@ type CompactTxStreamerServer interface {
 	// there are mempool transactions. It will close the returned stream when a new block is mined.
 	GetMempoolStream(*Empty, CompactTxStreamer_GetMempoolStreamServer) error
 	// GetTreeState returns the note commitment tree state corresponding to the given block.
-	// See section 3.7 of the Zcash protocol specification. It returns several other useful
+	// See section 3.7 of the Pirate protocol specification. It returns several other useful
 	// values also (even though they can be obtained using GetBlock).
 	// The block can be specified by either height or hash.
 	GetTreeState(context.Context, *BlockID) (*TreeState, error)

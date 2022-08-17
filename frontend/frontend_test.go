@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 package frontend
@@ -216,7 +216,7 @@ func zcashdrpcStub(method string, params []json.RawMessage) (json.RawMessage, er
 	step++
 	switch method {
 	case "getaddresstxids":
-		var filter common.ZcashdRpcRequestGetaddresstxids
+		var filter common.PiratedRpcRequestGetaddresstxids
 		err := json.Unmarshal(params[0], &filter)
 		if err != nil {
 			testT.Fatal("could not unmarshal block filter")
@@ -237,7 +237,7 @@ func zcashdrpcStub(method string, params []json.RawMessage) (json.RawMessage, er
 	case "getrawtransaction":
 		switch step {
 		case 2:
-			tx := &common.ZcashdRpcReplyGetrawtransaction{
+			tx := &common.PiratedRpcReplyGetrawtransaction{
 				Hex:    hex.EncodeToString(rawTxData[0]),
 				Height: 1234567,
 			}

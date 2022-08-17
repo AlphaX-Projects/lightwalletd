@@ -1,8 +1,8 @@
 # Definitions
 
-A **light wallet** is not a full participant in the network of Zcash peers. It can send and receive payments, but does not store or validate a copy of the blockchain.
+A **light wallet** is not a full participant in the network of Pirate peers. It can send and receive payments, but does not store or validate a copy of the blockchain.
 
-A **compact transaction** is a representation of a Zcash Sapling transaction that contains only the information necessary to detect that a given Sapling payment output is for you and to spend a note.
+A **compact transaction** is a representation of a Pirate Sapling transaction that contains only the information necessary to detect that a given Sapling payment output is for you and to spend a note.
 
 A **compact block** is a collection of compact transactions along with certain metadata (such as the block header) from their source block.
 
@@ -27,7 +27,7 @@ A **compact block** is a collection of compact transactions along with certain m
 
 ## Ingester
 
-The ingester is the component responsible for transforming raw Zcash block data into a compact block.
+The ingester is the component responsible for transforming raw Pirate block data into a compact block.
 
 The ingester is a modular component. Anything that can retrieve the necessary data and put it into storage can fulfill this role. Currently, the only ingester available communicated to zcashd through RPCs and parses that raw block data. 
 
@@ -53,7 +53,7 @@ To see the other command line options, run `go run cmd/ingest/main.go --help`.
 
 The frontend is the component that talks to clients. 
 
-It exposes an API that allows a client to query for current blockheight, request ranges of compact block data, request specific transaction details, and send new Zcash transactions.
+It exposes an API that allows a client to query for current blockheight, request ranges of compact block data, request specific transaction details, and send new Pirate transactions.
 
 The API is specified in [Protocol Buffers](https://developers.google.com/protocol-buffers/) and implemented using [gRPC](https://grpc.io). You can find the exact details in [these files](https://github.com/AlphaX-Projects/lightwalletd/tree/master/walletrpc).
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -99,7 +99,7 @@ func (s *lwdStreamer) dailyActiveBlock(height uint64, peerip string) {
 
 func (s *lwdStreamer) GetZECPrice(ctx context.Context, in *walletrpc.PriceRequest) (*walletrpc.PriceResponse, error) {
 	// Check for prices before zcash was born
-	if in == nil || in.Timestamp <= 1477551600 /* Zcash birthday: 2016-10-28*/ {
+	if in == nil || in.Timestamp <= 1477551600 /* Pirate birthday: 2016-10-28*/ {
 		common.Metrics.ZecPriceHistoryErrors.Inc()
 		return nil, errors.New("incorrect Timestamp")
 	}
@@ -166,7 +166,7 @@ func (s *lwdStreamer) GetTaddressTxids(addressBlockFilter *walletrpc.Transparent
 		return errors.New("Must specify an end block height")
 	}
 	params := make([]json.RawMessage, 1)
-	request := &common.ZcashdRpcRequestGetaddresstxids{
+	request := &common.PiratedRpcRequestGetaddresstxids{
 		Addresses: []string{addressBlockFilter.Address},
 		Start:     addressBlockFilter.Range.Start.Height,
 		End:       addressBlockFilter.Range.End.Height,
@@ -293,14 +293,14 @@ func (s *lwdStreamer) GetBlockRange(span *walletrpc.BlockRange, resp walletrpc.C
 }
 
 // GetTreeState returns the note commitment tree state corresponding to the given block.
-// See section 3.7 of the Zcash protocol specification. It returns several other useful
+// See section 3.7 of the Pirate protocol specification. It returns several other useful
 // values also (even though they can be obtained using GetBlock).
 // The block can be specified by either height or hash.
 func (s *lwdStreamer) GetTreeState(ctx context.Context, id *walletrpc.BlockID) (*walletrpc.TreeState, error) {
 	if id.Height == 0 && id.Hash == nil {
 		return nil, errors.New("request for unspecified identifier")
 	}
-	// The Zcash z_gettreestate rpc accepts either a block height or block hash
+	// The Pirate z_gettreestate rpc accepts either a block height or block hash
 	params := make([]json.RawMessage, 1)
 	var hashJSON []byte
 	if id.Height > 0 {
@@ -317,7 +317,7 @@ func (s *lwdStreamer) GetTreeState(ctx context.Context, id *walletrpc.BlockID) (
 		}
 		params[0] = hashJSON
 	}
-	var gettreestateReply common.ZcashdRpcReplyGettreestate
+	var gettreestateReply common.PiratedRpcReplyGettreestate
 	for {
 		result, rpcErr := common.RawRequest("z_gettreestate", params)
 		if rpcErr != nil {
@@ -374,7 +374,7 @@ func (s *lwdStreamer) GetTransaction(ctx context.Context, txf *walletrpc.TxFilte
 			return nil, rpcErr
 		}
 		// Many other fields are returned, but we need only these two.
-		var txinfo common.ZcashdRpcReplyGetrawtransaction
+		var txinfo common.PiratedRpcReplyGetrawtransaction
 		err = json.Unmarshal(result, &txinfo)
 		if err != nil {
 			return nil, err
@@ -456,14 +456,14 @@ func (s *lwdStreamer) SendTransaction(ctx context.Context, rawtx *walletrpc.RawT
 	return resp, nil
 }
 
-func getTaddressBalanceZcashdRpc(addressList []string) (*walletrpc.Balance, error) {
+func getTaddressBalancePiratedRpc(addressList []string) (*walletrpc.Balance, error) {
 	for _, addr := range addressList {
 		if err := checkTaddress(addr); err != nil {
 			return &walletrpc.Balance{}, err
 		}
 	}
 	params := make([]json.RawMessage, 1)
-	addrList := &common.ZcashdRpcRequestGetaddressbalance{
+	addrList := &common.PiratedRpcRequestGetaddressbalance{
 		Addresses: addressList,
 	}
 	param, err := json.Marshal(addrList)
@@ -476,7 +476,7 @@ func getTaddressBalanceZcashdRpc(addressList []string) (*walletrpc.Balance, erro
 	if rpcErr != nil {
 		return &walletrpc.Balance{}, rpcErr
 	}
-	var balanceReply common.ZcashdRpcReplyGetaddressbalance
+	var balanceReply common.PiratedRpcReplyGetaddressbalance
 	err = json.Unmarshal(result, &balanceReply)
 	if err != nil {
 		return &walletrpc.Balance{}, err
@@ -486,7 +486,7 @@ func getTaddressBalanceZcashdRpc(addressList []string) (*walletrpc.Balance, erro
 
 // GetTaddressBalance returns the total balance for a list of taddrs
 func (s *lwdStreamer) GetTaddressBalance(ctx context.Context, addresses *walletrpc.AddressList) (*walletrpc.Balance, error) {
-	return getTaddressBalanceZcashdRpc(addresses.Addresses)
+	return getTaddressBalancePiratedRpc(addresses.Addresses)
 }
 
 // GetTaddressBalanceStream returns the total balance for a list of taddrs
@@ -502,7 +502,7 @@ func (s *lwdStreamer) GetTaddressBalanceStream(addresses walletrpc.CompactTxStre
 		}
 		addressList = append(addressList, addr.Address)
 	}
-	balance, err := getTaddressBalanceZcashdRpc(addressList)
+	balance, err := getTaddressBalancePiratedRpc(addressList)
 	if err != nil {
 		return err
 	}
@@ -660,7 +660,7 @@ func getAddressUtxos(arg *walletrpc.GetAddressUtxosArg, f func(*walletrpc.GetAdd
 		}
 	}
 	params := make([]json.RawMessage, 1)
-	addrList := &common.ZcashdRpcRequestGetaddressutxos{
+	addrList := &common.PiratedRpcRequestGetaddressutxos{
 		Addresses: arg.Addresses,
 	}
 	param, err := json.Marshal(addrList)
@@ -672,7 +672,7 @@ func getAddressUtxos(arg *walletrpc.GetAddressUtxosArg, f func(*walletrpc.GetAdd
 	if rpcErr != nil {
 		return rpcErr
 	}
-	var utxosReply []common.ZcashdRpcReplyGetaddressutxos
+	var utxosReply []common.PiratedRpcReplyGetaddressutxos
 	err = json.Unmarshal(result, &utxosReply)
 	if err != nil {
 		return err
@@ -854,7 +854,7 @@ func (s *DarksideStreamer) ClearIncomingTransactions(ctx context.Context, e *wal
 
 // AddAddressUtxo adds a UTXO which will be returned by GetAddressUtxos() (above)
 func (s *DarksideStreamer) AddAddressUtxo(ctx context.Context, arg *walletrpc.GetAddressUtxosReply) (*walletrpc.Empty, error) {
-	utxosReply := common.ZcashdRpcReplyGetaddressutxos{
+	utxosReply := common.PiratedRpcReplyGetaddressutxos{
 		Address:     arg.Address,
 		Txid:        hex.EncodeToString(parser.Reverse(arg.Txid)),
 		OutputIndex: int64(arg.Index),

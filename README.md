@@ -23,7 +23,7 @@ This version of ARRRwallet lightwalletd extends lightwalletd and:
 * Adds several new RPC calls for lightclients
 * Lots of perf improvements
   * Replaces SQLite with in-memory cache for Compact Blocks
-  * Replace local Txstore, delegating Tx lookups to Zcashd
+  * Replace local Txstore, delegating Tx lookups to Pirated
   * Remove the need for a separate ingestor
 
 ## Running your own arrrlite lightwalletd

@@ -458,7 +458,7 @@
         
       
         <h3 id="cash.z.wallet.sdk.rpc.CompactSaplingOutput">CompactSaplingOutput</h3>
-        <p>output is a Sapling Output Description as described in section 7.4 of the</p><p>Zcash protocol spec. Total size is 948.</p>
+        <p>output is a Sapling Output Description as described in section 7.4 of the</p><p>Pirate protocol spec. Total size is 948.</p>
 
         
           <table class="field-table">
@@ -496,7 +496,7 @@
         
       
         <h3 id="cash.z.wallet.sdk.rpc.CompactSaplingSpend">CompactSaplingSpend</h3>
-        <p>CompactSaplingSpend is a Sapling Spend Description as described in 7.3 of the Zcash</p><p>protocol specification.</p>
+        <p>CompactSaplingSpend is a Sapling Spend Description as described in 7.3 of the Pirate</p><p>protocol specification.</p>
 
         
           <table class="field-table">
@@ -509,7 +509,7 @@
                   <td>nf</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>nullifier (see the Zcash protocol specification) </p></td>
+                  <td><p>nullifier (see the Pirate protocol specification) </p></td>
                 </tr>
               
             </tbody>
@@ -1396,7 +1396,7 @@ There is no staging or applying for these, very simple.</p></td>
                   <td>data</td>
                   <td><a href="#bytes">bytes</a></td>
                   <td></td>
-                  <td><p>exact data returned by Zcash &#39;getrawtransaction&#39; </p></td>
+                  <td><p>exact data returned by Pirate &#39;getrawtransaction&#39; </p></td>
                 </tr>
               
                 <tr>
@@ -1476,7 +1476,7 @@ There is no staging or applying for these, very simple.</p></td>
         
       
         <h3 id="cash.z.wallet.sdk.rpc.TreeState">TreeState</h3>
-        <p>The TreeState is derived from the Zcash z_gettreestate rpc.</p>
+        <p>The TreeState is derived from the Pirate z_gettreestate rpc.</p>
 
         
           <table class="field-table">
@@ -1618,7 +1618,7 @@ There is no staging or applying for these, very simple.</p></td>
                 <td>SendTransaction</td>
                 <td><a href="#cash.z.wallet.sdk.rpc.RawTransaction">RawTransaction</a></td>
                 <td><a href="#cash.z.wallet.sdk.rpc.SendResponse">SendResponse</a></td>
-                <td><p>Submit the given transaction to the Zcash network</p></td>
+                <td><p>Submit the given transaction to the Pirate network</p></td>
               </tr>
             
               <tr>
@@ -1670,7 +1670,7 @@ there are mempool transactions. It will close the returned stream when a new blo
                 <td><a href="#cash.z.wallet.sdk.rpc.BlockID">BlockID</a></td>
                 <td><a href="#cash.z.wallet.sdk.rpc.TreeState">TreeState</a></td>
                 <td><p>GetTreeState returns the note commitment tree state corresponding to the given block.
-See section 3.7 of the Zcash protocol specification. It returns several other useful
+See section 3.7 of the Pirate protocol specification. It returns several other useful
 values also (even though they can be obtained using GetBlock).
 The block can be specified by either height or hash.</p></td>
               </tr>

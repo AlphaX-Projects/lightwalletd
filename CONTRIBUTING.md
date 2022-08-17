@@ -1,5 +1,5 @@
 # Development Workflow
-This document describes the standard workflows and terminology for developers at Zcash. It is intended to provide procedures that will allow users to contribute to the open-source code base. Below are common workflows users will encounter:
+This document describes the standard workflows and terminology for developers at Pirate. It is intended to provide procedures that will allow users to contribute to the open-source code base. Below are common workflows users will encounter:
 
 1. Fork lightwalletd Repository 
 2. Create Branch
@@ -46,7 +46,7 @@ After issuing the above commands, your `.git/config` file should look similar to
 This setup provides a single cloned environment to develop for lightwalletd. There are alternative methods using multiple clones, but this document does not cover that process.
 
 ## Create Branch
-While working on the lightwalletd project, you are going to have bugs, features, and ideas to work on. Branching exists to aid these different tasks while you write code. Below are some conventions of branching at Zcash:
+While working on the lightwalletd project, you are going to have bugs, features, and ideas to work on. Branching exists to aid these different tasks while you write code. Below are some conventions of branching at Pirate:
 
 1. `master` branch is **ALWAYS** deployable
 2. Branch names **MUST** be descriptive:

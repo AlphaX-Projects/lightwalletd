@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 package common
@@ -92,7 +92,7 @@ func getLightdInfoStub(method string, params []json.RawMessage) (json.RawMessage
 	step++
 	switch method {
 	case "getinfo":
-		r, _ := json.Marshal(&ZcashdRpcReplyGetinfo{})
+		r, _ := json.Marshal(&PiratedRpcReplyGetinfo{})
 		return r, nil
 
 	case "getblockchaininfo":
@@ -105,7 +105,7 @@ func getLightdInfoStub(method string, params []json.RawMessage) (json.RawMessage
 				testT.Error("unexpected sleeps", sleepCount, sleepDuration)
 			}
 		}
-		r, _ := json.Marshal(&ZcashdRpcReplyGetblockchaininfo{
+		r, _ := json.Marshal(&PiratedRpcReplyGetblockchaininfo{
 			Blocks:    9977,
 			Chain:     "bugsbunny",
 			Consensus: ConsensusInfo{Chaintip: "someid"},
@@ -629,7 +629,7 @@ func mempoolStub(method string, params []json.RawMessage) (json.RawMessage, erro
 		if method != "getblockchaininfo" {
 			testT.Fatal("expecting blockchaininfo")
 		}
-		r, _ := json.Marshal(&ZcashdRpcReplyGetblockchaininfo{
+		r, _ := json.Marshal(&PiratedRpcReplyGetblockchaininfo{
 			BestBlockHash: "010203",
 			Blocks:        200,
 		})
@@ -639,7 +639,7 @@ func mempoolStub(method string, params []json.RawMessage) (json.RawMessage, erro
 		if method != "getblockchaininfo" {
 			testT.Fatal("expecting blockchaininfo")
 		}
-		r, _ := json.Marshal(&ZcashdRpcReplyGetblockchaininfo{
+		r, _ := json.Marshal(&PiratedRpcReplyGetblockchaininfo{
 			BestBlockHash: "010203",
 			Blocks:        200,
 		})
@@ -671,7 +671,7 @@ func mempoolStub(method string, params []json.RawMessage) (json.RawMessage, erro
 		if method != "getblockchaininfo" {
 			testT.Fatal("expecting blockchaininfo")
 		}
-		r, _ := json.Marshal(&ZcashdRpcReplyGetblockchaininfo{
+		r, _ := json.Marshal(&PiratedRpcReplyGetblockchaininfo{
 			BestBlockHash: "010203",
 			Blocks:        200,
 		})
@@ -703,7 +703,7 @@ func mempoolStub(method string, params []json.RawMessage) (json.RawMessage, erro
 		if method != "getblockchaininfo" {
 			testT.Fatal("expecting blockchaininfo")
 		}
-		r, _ := json.Marshal(&ZcashdRpcReplyGetblockchaininfo{
+		r, _ := json.Marshal(&PiratedRpcReplyGetblockchaininfo{
 			BestBlockHash: "d1d2d3",
 			Blocks:        201,
 		})

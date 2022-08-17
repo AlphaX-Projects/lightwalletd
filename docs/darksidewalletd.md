@@ -1,7 +1,7 @@
 # Intro to darksidewalletd
 
 Darksidewalletd is a feature included in lightwalletd, enabled by the
-`--darkside-very-insecure` flag, which can serve arbitrary blocks to a Zcash
+`--darkside-very-insecure` flag, which can serve arbitrary blocks to a Pirate
 light client wallet. This is useful for security and reorg testing. It includes
 a minimally-functional mock zcashd which comes with a gRPC API for controlling
 which blocks it will serve.
@@ -56,7 +56,7 @@ Transaction Data*| |x|
 \*Transactions in blocks must conform to the transaction format, but not need
 valid zero-knowledge proofs etc.
 
-For more information about block headers, see the Zcash protocol specification.
+For more information about block headers, see the Pirate protocol specification.
 
 Lightwalletd provides us with a gRPC API for generating these
 minimally-acceptable fake blocks. The API allows us to "stage" blocks and

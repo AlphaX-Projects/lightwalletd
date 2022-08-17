@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -35,7 +35,7 @@ message TxFilter {
 // the block height in which the transaction was included, or, when returned
 // by GetMempoolStream(), the latest block height.
 message RawTransaction {
-    bytes data = 1;     // exact data returned by Zcash 'getrawtransaction'
+    bytes data = 1;     // exact data returned by Pirate 'getrawtransaction'
     uint64 height = 2;  // height that the transaction was mined (or -1)
 }
 
@@ -108,7 +108,7 @@ message Exclude {
     repeated bytes txid = 1;
 }
 
-// The TreeState is derived from the Zcash z_gettreestate rpc.
+// The TreeState is derived from the Pirate z_gettreestate rpc.
 message TreeState {
     string network = 1;     // "main" or "test"
     uint64 height = 2;      // block height
@@ -171,7 +171,7 @@ service CompactTxStreamer {
 
     // Return the requested full (not compact) transaction (as from zcashd)
     rpc GetTransaction(TxFilter) returns (RawTransaction) {}
-    // Submit the given transaction to the Zcash network
+    // Submit the given transaction to the Pirate network
     rpc SendTransaction(RawTransaction) returns (SendResponse) {}
 
     // Return the txids corresponding to the given t-address within the given block range
@@ -195,7 +195,7 @@ service CompactTxStreamer {
     rpc GetMempoolStream(Empty) returns (stream RawTransaction) {}
 
     // GetTreeState returns the note commitment tree state corresponding to the given block.
-    // See section 3.7 of the Zcash protocol specification. It returns several other useful
+    // See section 3.7 of the Pirate protocol specification. It returns several other useful
     // values also (even though they can be obtained using GetBlock).
     // The block can be specified by either height or hash.
     rpc GetTreeState(BlockID) returns (TreeState) {}

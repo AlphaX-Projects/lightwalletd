@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -21,10 +21,10 @@ const (
 )
 
 // RawBlockHeader implements the block header as defined in version
-// 2018.0-beta-29 of the Zcash Protocol Spec.
+// 2018.0-beta-29 of the Pirate Protocol Spec.
 type RawBlockHeader struct {
 	// The block version number indicates which set of block validation rules
-	// to follow. The current and only defined block version number for Zcash
+	// to follow. The current and only defined block version number for Pirate
 	// is 4.
 	Version int32
 

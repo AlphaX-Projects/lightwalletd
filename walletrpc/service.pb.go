@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -212,7 +212,7 @@ type RawTransaction struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Data   []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`      // exact data returned by Zcash 'getrawtransaction'
+	Data   []byte `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`      // exact data returned by Pirate 'getrawtransaction'
 	Height uint64 `protobuf:"varint,2,opt,name=height,proto3" json:"height,omitempty"` // height that the transaction was mined (or -1)
 }
 
@@ -417,8 +417,8 @@ type LightdInfo struct {
 	BuildDate               string `protobuf:"bytes,10,opt,name=buildDate,proto3" json:"buildDate,omitempty"`
 	BuildUser               string `protobuf:"bytes,11,opt,name=buildUser,proto3" json:"buildUser,omitempty"`
 	EstimatedHeight         uint64 `protobuf:"varint,12,opt,name=estimatedHeight,proto3" json:"estimatedHeight,omitempty"`  // less than tip height if zcashd is syncing
-	ZcashdBuild             string `protobuf:"bytes,13,opt,name=zcashdBuild,proto3" json:"zcashdBuild,omitempty"`           // example: "v4.1.1-877212414"
-	ZcashdSubversion        string `protobuf:"bytes,14,opt,name=zcashdSubversion,proto3" json:"zcashdSubversion,omitempty"` // example: "/MagicBean:4.1.1/"
+	PiratedBuild             string `protobuf:"bytes,13,opt,name=zcashdBuild,proto3" json:"zcashdBuild,omitempty"`           // example: "v4.1.1-877212414"
+	PiratedSubversion        string `protobuf:"bytes,14,opt,name=zcashdSubversion,proto3" json:"zcashdSubversion,omitempty"` // example: "/MagicBean:4.1.1/"
 }
 
 func (x *LightdInfo) Reset() {
@@ -537,16 +537,16 @@ func (x *LightdInfo) GetEstimatedHeight() uint64 {
 	return 0
 }
 
-func (x *LightdInfo) GetZcashdBuild() string {
+func (x *LightdInfo) GetPiratedBuild() string {
 	if x != nil {
-		return x.ZcashdBuild
+		return x.PiratedBuild
 	}
 	return ""
 }
 
-func (x *LightdInfo) GetZcashdSubversion() string {
+func (x *LightdInfo) GetPiratedSubversion() string {
 	if x != nil {
-		return x.ZcashdSubversion
+		return x.PiratedSubversion
 	}
 	return ""
 }
@@ -904,7 +904,7 @@ func (x *Exclude) GetTxid() [][]byte {
 	return nil
 }
 
-// The TreeState is derived from the Zcash z_gettreestate rpc.
+// The TreeState is derived from the Pirate z_gettreestate rpc.
 type TreeState struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

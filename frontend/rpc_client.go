@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -24,13 +24,13 @@ func NewZRPCFromConf(confPath interface{}) (*rpcclient.Client, error) {
 
 // NewZRPCFromFlags gets zcashd rpc connection information from provided flags.
 func NewZRPCFromFlags(opts *common.Options) (*rpcclient.Client, error) {
-	// Connect to local Zcash RPC server using HTTP POST mode.
+	// Connect to local Pirate RPC server using HTTP POST mode.
 	connCfg := &rpcclient.ConnConfig{
 		Host:         net.JoinHostPort(opts.RPCHost, opts.RPCPort),
 		User:         opts.RPCUser,
 		Pass:         opts.RPCPassword,
-		HTTPPostMode: true, // Zcash only supports HTTP POST mode
-		DisableTLS:   true, // Zcash does not provide TLS by default
+		HTTPPostMode: true, // Pirate only supports HTTP POST mode
+		DisableTLS:   true, // Pirate does not provide TLS by default
 	}
 	return rpcclient.New(connCfg, nil)
 }
@@ -59,13 +59,13 @@ func connFromConf(confPath interface{}) (*rpcclient.ConnConfig, error) {
 	username := cfg.Section("").Key("rpcuser").String()
 	password := cfg.Section("").Key("rpcpassword").String()
 
-	// Connect to local Zcash RPC server using HTTP POST mode.
+	// Connect to local Pirate RPC server using HTTP POST mode.
 	connCfg := &rpcclient.ConnConfig{
 		Host:         net.JoinHostPort(rpcaddr, rpcport),
 		User:         username,
 		Pass:         password,
-		HTTPPostMode: true, // Zcash only supports HTTP POST mode
-		DisableTLS:   true, // Zcash does not provide TLS by default
+		HTTPPostMode: true, // Pirate only supports HTTP POST mode
+		DisableTLS:   true, // Pirate does not provide TLS by default
 	}
 	// Notice the notification parameter is nil since notifications are
 	// not supported in HTTP POST mode.

@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -124,7 +124,7 @@ func (tx *Transaction) ParseTransparent(data []byte) ([]byte, error) {
 	return []byte(s), nil
 }
 
-// spend is a Sapling Spend Description as described in 7.3 of the Zcash
+// spend is a Sapling Spend Description as described in 7.3 of the Pirate
 // protocol specification.
 type spend struct {
 	//cv           []byte // 32
@@ -172,7 +172,7 @@ func (p *spend) ToCompact() *walletrpc.CompactSaplingSpend {
 }
 
 // output is a Sapling Output Description as described in section 7.4 of the
-// Zcash protocol spec.
+// Pirate protocol spec.
 type output struct {
 	//cv            []byte // 32
 	cmu           []byte // 32
@@ -220,7 +220,7 @@ func (p *output) ToCompact() *walletrpc.CompactSaplingOutput {
 	}
 }
 
-// joinSplit is a JoinSplit description as described in 7.2 of the Zcash
+// joinSplit is a JoinSplit description as described in 7.2 of the Pirate
 // protocol spec. Its exact contents differ by transaction version and network
 // upgrade level. Only version 4 is supported, no need for proofPHGR13.
 type joinSplit struct {

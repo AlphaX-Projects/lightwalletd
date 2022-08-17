@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -42,14 +42,14 @@ message CompactTx {
     repeated CompactOrchardAction actions = 6;
 }
 
-// CompactSaplingSpend is a Sapling Spend Description as described in 7.3 of the Zcash
+// CompactSaplingSpend is a Sapling Spend Description as described in 7.3 of the Pirate
 // protocol specification.
 message CompactSaplingSpend {
-    bytes nf = 1;   // nullifier (see the Zcash protocol specification)
+    bytes nf = 1;   // nullifier (see the Pirate protocol specification)
 }
 
 // output is a Sapling Output Description as described in section 7.4 of the
-// Zcash protocol spec. Total size is 948.
+// Pirate protocol spec. Total size is 948.
 message CompactSaplingOutput {
     bytes cmu = 1;          // note commitment u-coordinate
     bytes epk = 2;          // ephemeral public key

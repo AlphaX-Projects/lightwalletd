@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Zcash developers
+// Copyright (c) 2019-2020 The Pirate developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php .
 
@@ -218,14 +218,14 @@ func (x *CompactTx) GetActions() []*CompactOrchardAction {
 	return nil
 }
 
-// CompactSaplingSpend is a Sapling Spend Description as described in 7.3 of the Zcash
+// CompactSaplingSpend is a Sapling Spend Description as described in 7.3 of the Pirate
 // protocol specification.
 type CompactSaplingSpend struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Nf []byte `protobuf:"bytes,1,opt,name=nf,proto3" json:"nf,omitempty"` // nullifier (see the Zcash protocol specification)
+	Nf []byte `protobuf:"bytes,1,opt,name=nf,proto3" json:"nf,omitempty"` // nullifier (see the Pirate protocol specification)
 }
 
 func (x *CompactSaplingSpend) Reset() {
@@ -268,7 +268,7 @@ func (x *CompactSaplingSpend) GetNf() []byte {
 }
 
 // output is a Sapling Output Description as described in section 7.4 of the
-// Zcash protocol spec. Total size is 948.
+// Pirate protocol spec. Total size is 948.
 type CompactSaplingOutput struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache

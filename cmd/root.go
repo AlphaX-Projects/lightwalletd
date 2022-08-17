@@ -39,9 +39,9 @@ var logger = logrus.New()
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "lightwalletd",
-	Short: "Lightwalletd is a backend service to the Zcash blockchain",
+	Short: "Lightwalletd is a backend service to the Pirate blockchain",
 	Long: `Lightwalletd is a backend service that provides a 
-         bandwidth-efficient interface to the Zcash blockchain`,
+         bandwidth-efficient interface to the Pirate blockchain`,
 	Run: func(cmd *cobra.Command, args []string) {
 		opts := &common.Options{
 			GRPCBindAddr:        viper.GetString("grpc-bind-addr"),
@@ -51,7 +51,7 @@ var rootCmd = &cobra.Command{
 			TLSKeyPath:          viper.GetString("tls-key"),
 			LogLevel:            viper.GetUint64("log-level"),
 			LogFile:             viper.GetString("log-file"),
-			ZcashConfPath:       viper.GetString("zcash-conf-path"),
+			PirateConfPath:       viper.GetString("zcash-conf-path"),
 			RPCUser:             viper.GetString("rpcuser"),
 			RPCPassword:         viper.GetString("rpcpassword"),
 			RPCHost:             viper.GetString("rpchost"),
@@ -75,7 +75,7 @@ var rootCmd = &cobra.Command{
 			os.OpenFile(opts.LogFile, os.O_RDWR|os.O_CREATE|os.O_EXCL, 0666)
 		}
 		if !opts.Darkside && (opts.RPCUser == "" || opts.RPCPassword == "" || opts.RPCHost == "" || opts.RPCPort == "") {
-			filesThatShouldExist = append(filesThatShouldExist, opts.ZcashConfPath)
+			filesThatShouldExist = append(filesThatShouldExist, opts.PirateConfPath)
 		}
 		if !opts.NoTLSVeryInsecure && !opts.GenCertVeryInsecure {
 			filesThatShouldExist = append(filesThatShouldExist,
@@ -194,7 +194,7 @@ func startServer(opts *common.Options) error {
 		reflection.Register(server)
 	}
 
-	// Initialize Zcash RPC client. Right now (Jan 2018) this is only for
+	// Initialize Pirate RPC client. Right now (Jan 2018) this is only for
 	// sending transactions, but in the future it could back a different type
 	// of block streamer.
 
@@ -208,7 +208,7 @@ func startServer(opts *common.Options) error {
 		if opts.RPCUser != "" && opts.RPCPassword != "" && opts.RPCHost != "" && opts.RPCPort != "" {
 			rpcClient, err = frontend.NewZRPCFromFlags(opts)
 		} else {
-			rpcClient, err = frontend.NewZRPCFromConf(opts.ZcashConfPath)
+			rpcClient, err = frontend.NewZRPCFromConf(opts.PirateConfPath)
 		}
 		if err != nil {
 			common.Log.WithFields(logrus.Fields{
