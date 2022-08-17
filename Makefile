@@ -5,7 +5,7 @@
  #  Description:  Used for local and container dev in CI deployments
  #  Usage: make <target_name>
  #
- #  Copyright (c) 2020 The Pirate developers
+ #  Copyright (c) 2020 The Zcash developers
  #  Distributed under the MIT software license, see the accompanying
  #  file COPYING or https://www.opensource.org/licenses/mit-license.php .
  #
