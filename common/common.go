@@ -11,8 +11,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/adityapk00/lightwalletd/parser"
-	"github.com/adityapk00/lightwalletd/walletrpc"
+	"github.com/AlphaX-Projects/lightwalletd/parser"
+	"github.com/AlphaX-Projects/lightwalletd/walletrpc"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 )

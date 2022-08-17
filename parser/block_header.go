@@ -11,7 +11,7 @@ import (
 	"encoding/binary"
 	"math/big"
 
-	"github.com/adityapk00/lightwalletd/parser/internal/bytestring"
+	"github.com/AlphaX-Projects/lightwalletd/parser/internal/bytestring"
 	"github.com/pkg/errors"
 )
 

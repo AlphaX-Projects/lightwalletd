@@ -57,7 +57,7 @@ Credits
 
 Thanks to everyone who directly contributed to this release:
 
-- adityapk00
+- AlphaX-Projects
 - Marshall Gaucher
 - Kevin Gorhan
 - Taylor Hornby

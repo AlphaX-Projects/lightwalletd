@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/adityapk00/lightwalletd/walletrpc"
+	"github.com/AlphaX-Projects/lightwalletd/walletrpc"
 )
 
 type txid string

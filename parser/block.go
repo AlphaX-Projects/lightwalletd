@@ -8,8 +8,8 @@ package parser
 import (
 	"fmt"
 
-	"github.com/adityapk00/lightwalletd/parser/internal/bytestring"
-	"github.com/adityapk00/lightwalletd/walletrpc"
+	"github.com/AlphaX-Projects/lightwalletd/parser/internal/bytestring"
+	"github.com/AlphaX-Projects/lightwalletd/walletrpc"
 	"github.com/pkg/errors"
 )
 
@@ -69,7 +69,7 @@ func (b *Block) HasSaplingTransactions() bool {
 	return false
 }
 
-// see https://github.com/adityapk00/lightwalletd/issues/17#issuecomment-467110828
+// see https://github.com/AlphaX-Projects/lightwalletd/issues/17#issuecomment-467110828
 const genesisTargetDifficulty = 520617983
 
 // GetHeight extracts the block height from the coinbase transaction. See

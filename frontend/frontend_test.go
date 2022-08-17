@@ -15,8 +15,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/adityapk00/lightwalletd/common"
-	"github.com/adityapk00/lightwalletd/walletrpc"
+	"github.com/AlphaX-Projects/lightwalletd/common"
+	"github.com/AlphaX-Projects/lightwalletd/walletrpc"
 	"github.com/sirupsen/logrus"
 )
 

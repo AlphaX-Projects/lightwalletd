@@ -23,10 +23,10 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/adityapk00/lightwalletd/common"
-	"github.com/adityapk00/lightwalletd/common/logging"
-	"github.com/adityapk00/lightwalletd/frontend"
-	"github.com/adityapk00/lightwalletd/walletrpc"
+	"github.com/AlphaX-Projects/lightwalletd/common"
+	"github.com/AlphaX-Projects/lightwalletd/common/logging"
+	"github.com/AlphaX-Projects/lightwalletd/frontend"
+	"github.com/AlphaX-Projects/lightwalletd/walletrpc"
 )
 
 var (
