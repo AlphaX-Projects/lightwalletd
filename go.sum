@@ -284,8 +284,8 @@ github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9de
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.2.1/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
-github.com/pirate/lightwalletd v0.4.12 h1:PAPB3GpHw3LCf30SskHw1sXKcRZq5bjmKH1Awkm9U+I=
-github.com/pirate/lightwalletd v0.4.12/go.mod h1:KsNsRWUATRvWuhsW/h0thygNtT7JIEJQFNW0r2wXIuA=
+github.com/zcash/lightwalletd v0.4.12 h1:PAPB3GpHw3LCf30SskHw1sXKcRZq5bjmKH1Awkm9U+I=
+github.com/zcash/lightwalletd v0.4.12/go.mod h1:KsNsRWUATRvWuhsW/h0thygNtT7JIEJQFNW0r2wXIuA=
 go.etcd.io/bbolt v1.3.2/go.mod h1:IbVyRI1SCnLcuJnV2u8VeU0CEYM7e686BmAb1XKL+uU=
 go.opencensus.io v0.21.0/go.mod h1:mSImk1erAIZhrmZN+AvHh14ztQfjbGwt4TtuofqLduU=
 go.opencensus.io v0.22.0/go.mod h1:+kGneAE2xo2IficOXnaByMWTGM9T73dGwxeWcUqIpI8=
