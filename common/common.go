@@ -215,14 +215,14 @@ func GetLightdInfo() (*walletrpc.LightdInfo, error) {
 		saplingHeight = saplingJSON.ActivationHeight
 	}
 
-	vendor := "Zecwallet LightWalletD"
+	vendor := "Pirate LightWalletD"
 	if DarksideEnabled {
-		vendor = "Zecwallet DarksideWalletD"
+		vendor = "Pirate DarksideWalletD"
 	}
 	return &walletrpc.LightdInfo{
 		Version:                 Version,
 		Vendor:                  vendor,
-		TaddrSupport:            true,
+		TaddrSupport:            false,
 		ChainName:               getblockchaininfoReply.Chain,
 		SaplingActivationHeight: uint64(saplingHeight),
 		ConsensusBranchId:       getblockchaininfoReply.Consensus.Chaintip,

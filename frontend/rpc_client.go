@@ -49,7 +49,7 @@ func connFromConf(confPath interface{}) (*rpcclient.ConnConfig, error) {
 	}
 	rpcport := cfg.Section("").Key("rpcport").String()
 	if rpcport == "" {
-		rpcport = "8232" // default mainnet
+		rpcport = "45453" // default mainnet
 		testnet, _ := cfg.Section("").Key("testnet").Int()
 		regtest, _ := cfg.Section("").Key("regtest").Int()
 		if testnet > 0 || regtest > 0 {
