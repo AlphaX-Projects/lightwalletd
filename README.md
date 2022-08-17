@@ -13,7 +13,7 @@ The Lightwalletd Server is experimental and a work in progress. Use it at your o
 
 # Overview
 
-ARRRwallet lightwalletd is a fork of [lightwalletd](https://github.com/AlphaX-Projects/lightwalletd) from the ECC. 
+ARRRwallet lightwalletd is a fork of [lightwalletd](https://github.com/adityapk00/lightwalletd) from the ECC. 
 
 It is a backend service that provides a bandwidth-efficient interface to the PIRATE blockchain for the ARRRwallet light wallet.
 
